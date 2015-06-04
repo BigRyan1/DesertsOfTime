@@ -1,0 +1,127 @@
+import java.util.Scanner;
+public class Adventure
+{
+    public static void main(String [] args)
+    {
+        Scanner scan=new Scanner(System.in);
+        String reset="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+        Enemy enemy=new Enemy();
+        System.out.println("A man finds himself lost in the Deserts of Time at nighttime. His name is:");
+        String name=scan.nextLine();
+        Character chara=new Character(name);
+        System.out.println("Your character's name is "+name+". "+name+" starts with 3 strength, agility, intellect, and armor.");
+        printOptions(chara);
+        int choice=scan.nextInt();
+        while (choice!=0)
+        {
+           
+            initiate(choice, chara, enemy);
+            printOptions(chara);
+            choice = scan.nextInt();
+        }
+    }
+
+    public static void printOptions(Character chara)
+    {
+        String reset="\n\n";
+        System.out.println(reset);
+        System.out.println(" 0: Quit and save your game");
+        System.out.println(" 1: Rest up and heal");
+        System.out.println(" 2: Battle an enemy");
+        System.out.println(" 3: Information");
+        System.out.println(" 4: Check stats");
+        System.out.println(" 5: Search for a shop");
+        System.out.println(" 6: Explore the area");
+        if (!chara.inChamber())
+        System.out.println(" 7: Trek further");
+        System.out.println(" 8: Check Inventory");
+        System.out.println(" 9: Look around");
+        if (chara.isAway())
+        System.out.println(" 10: Go back to the previous area");
+        if (chara.inChamber())
+        System.out.println(" 11: Approach Chrono");
+        
+        
+       
+
+    }
+    public static void initiate(int choice, Character chara, Enemy enemy)
+    {
+        
+       
+           if (choice==0)
+           {
+               System.out.println(chara.getName()+" vanishes from the sands...");
+            
+        }
+        else if (choice==1)
+        {
+            System.out.println();
+            chara.town();
+            
+        }
+        else if (choice==2)
+        {
+            System.out.println();
+            enemy.DetermineEnemy(chara);
+          
+        }
+        else if (choice==3)
+        {
+            System.out.println("Each point of:");
+            System.out.println("Armor decreases all damage taken by 1.");
+            System.out.println("Strength increases damage against Cloth armor types by 1, other armors by .25");
+            System.out.println("Agility increases damage against Chainmail armor types by 1, other armors by .25");
+            System.out.println("Intellect increases damage against Emerald armor types by 1, other armors by .25");
+           System.out.println("At the shop you can purchase armor and weapons to boost stats passively, as well as utilities such as potions to help survive battle."); 
+            System.out.println("Your goal is to acquire what you need to defeat Chrono, the villian behind the infinite sands.");
+     
+        }
+        else if (choice==4)
+        {chara.currentStats();
+          
+        }
+        else if (choice==5)
+        {
+             chara.Shop();
+            
+        }
+        else if (choice==6)
+        {
+            chara.Explore();
+            
+        }
+        else if (choice==7&&!chara.inChamber())
+        {
+            chara.Advance();
+            
+        }
+        else if (choice==8)
+        {
+            chara.getInventory();
+        }
+        else if (choice==9)
+        {
+            System.out.println(chara.checkSpot());
+        }
+        else if (choice==10&&chara.isAway())
+        {
+            chara.backStep();
+        }
+        else if (choice==11&&chara.inChamber())
+        enemy.fightChrono(chara);
+        
+        else
+        {
+            System.out.println("That's not an option, adventurer.");
+        }
+            
+           
+            
+            
+        
+
+    }
+}
+
+         
