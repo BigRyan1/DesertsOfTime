@@ -1,0 +1,806 @@
+import java.util.Scanner;
+public class Character
+{
+    private int brickArmor=0;
+    private int prestige=0;
+    private boolean oasis=false;
+    private boolean sandriver=false;
+    private boolean chronospalace=false;
+    private boolean chronoschamber=false;
+    private int wcom=0;
+    private int eaoif=0;
+    private int doti=0;
+    private int tsodm=0;
+    private int agility=3;
+    private int tempagility, tempstrength, tempintellect, temparmor;
+    private int strength=3;
+    private int intellect=3;
+    private int armor=3;
+    private int experience=0;
+    private int gold=0;
+    private int xpneeded=100;
+    private int level=1;
+    private int health=100;
+    private int maxHP=100;
+    private int brickTicks=0;
+    private int irondaggers=0;
+    private int warriorarmors=0;
+    private int wizardstaffs=0;
+    private int oaklongbows=0;
+    private int potions=0;
+    private String reset="\n\n";
+    private int herosmixes=0;
+    private boolean wonlastbattle=false;
+    private String inventory="";
+    private String name="";
+    Scanner scan=new Scanner(System.in);
+    String choice="";
+    public Character(String gname)
+    {
+        name=gname;
+    }
+
+    public void levelup()
+
+    {
+       this.reconstructInventory();
+        System.out.println(reset);
+        System.out.println("Congratulations! You leveled up; All stats increased by one and you may add 2 additional points to an individual stat.");
+        System.out.println("A for armor, S for strength, a for agility, I for intellect...");
+        armor++;
+        intellect++;
+        agility++;
+        level++;
+        strength++;
+        experience=+experience%xpneeded;
+        xpneeded=xpneeded+100;
+        maxHP+=20;
+        this.currentStats();
+        char choice='C';
+        while(choice!='A'&&choice!='S'&&choice!='I'&&choice!='a')
+        {
+            choice=scan.nextLine().charAt(0);
+            switch (choice)
+            {
+                case 'A':
+                armor+=2;
+                System.out.println("Armor has been increased by 2 additional points.");
+                break;
+                case 'S':
+                strength+=2;
+                System.out.println("Strength has been increased by 2 additional points.");
+                break;
+                case 'I':
+                intellect+=2;
+                System.out.println("Intellect has been increased by 2 additional points.");
+                break;
+                case 'a':
+                agility+=2;
+                System.out.println("Agility has been increased by 2 additional points.");
+                break;
+                default:
+                System.out.println("Incorrect choice, please pick again");
+
+            }
+        }
+        this.currentStats();
+ 
+    }
+
+    public void currentStats()
+    {
+        String stats="Your Armor: "+armor+"\nYour Agility: "+agility+"\nYour Strength: "+strength+"\nYour Intellect: "+intellect+"\nYour Experience required for next level: "+experience+"/"+xpneeded+"\nYour Level: "+level+"\nYour Max HP: "+maxHP;
+        System.out.println(stats);
+    }
+
+    public int getAgility()
+    {
+        return agility;
+    }
+    public boolean inChamber()
+    {
+        return chronoschamber;
+    }
+    public boolean inPalace()
+    {
+        return chronospalace;
+    }
+    public boolean inOasis()
+    {
+        return oasis;
+    }
+    public boolean inSandRiver()
+    {
+        return sandriver;
+    }
+      
+    public void getInventory()
+    {
+        System.out.println(inventory);
+    }
+
+    public int getIntellect()
+    {
+        return intellect;
+    }
+    public int getPrestige()
+    {
+        return prestige;
+    }
+    public void Advance()
+    {
+        System.out.println("You leave the area....");
+        try{ Thread.sleep(5000);
+        } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+        if (oasis==false)
+        {
+            System.out.println();
+            System.out.println("You come across an oasis...");
+            
+            oasis=true;
+        }
+        else if (sandriver==false)
+        {
+            System.out.println();
+            System.out.println("You find a river of sand, with a palace nearby in sight...");
+            sandriver=true;
+        }
+        else if (chronospalace==false)
+        {
+            System.out.println();
+            System.out.println("You travel to the palace nearby. There is something off about this place...");
+            chronospalace=true;
+        }
+        else if (chronoschamber==false)
+        {
+            System.out.println();
+            System.out.println("You explore the palace and find a chamber, you see Chrono...");
+            chronoschamber=true;
+    }
+}
+    public void backStep()
+    {
+        System.out.println("You turn your back to the present situation....");
+        try{ Thread.sleep(5000);
+        } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+        if (chronoschamber==true)
+        {
+            System.out.println("You step back down into the main room of Chrono's Palace...");
+            chronoschamber=false;
+        }
+        else if (chronospalace==true)
+        {
+            System.out.println("You find yourself back at the river of sand...");
+            chronospalace=false;
+        }
+        else if (sandriver==true)
+        {
+           System.out.println("This oasis is familiar...");
+            sandriver=false;
+        }
+        else 
+        {
+            System.out.println("You bring yourself back to where you started...");
+            oasis=false;
+        }
+ 
+    
+    }
+    public String checkSpot()
+    {
+        if (chronoschamber==true)
+        return "You are in Chrono's Chamber.";
+        else if (chronospalace==true)
+        return "You are in Chrono's Palace.";
+        else if (sandriver==true)
+        return "You are near a river of sand, you see a large palace in the distance, however.";
+        else if (oasis==true)
+        return "You are in an oasis";
+        else
+        return "You are lost in the desert";
+    }
+    public boolean isAway()
+{
+    if (chronoschamber==true||chronospalace==true||sandriver==true||oasis==true)
+    return true;
+    return false;
+}
+        
+        
+            
+
+    public int getArmor()
+    {
+        return armor;
+    }
+
+    public int getStrength()
+    {
+        return strength;
+    }
+
+    public int getExperience()
+    {
+        return experience;
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public int getLevel()
+    {
+        return level;
+    }
+
+    public int getPotions()
+    {
+        return potions;
+    }
+
+    public void drinkPotion()
+    {
+        System.out.println("You drink a potion.");
+        if (maxHP-health>=50)
+        {
+            health+=50;
+            potions--;
+            this.reconstructInventory();
+        }
+        else
+        {
+            health=maxHP;
+            potions--;
+            this.reconstructInventory();
+        }
+    }
+    public int getHerosMixes()
+    {
+        return herosmixes;
+    }
+
+    public void drinkHerosMix()
+    {
+        System.out.println("You drink the Hero's Mix....");
+        try{ Thread.sleep(3000);
+                } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+        herosmixes--;
+    
+        strength=strength+((int)(strength*2));
+        agility=agility+((int)(agility*2));
+        intellect=intellect+((int)(intellect*2));
+        armor=armor+((int)(armor*2));
+        System.out.println("It tastes bitter, but you feel twice as strong!");
+        this.reconstructInventory();
+    }
+
+    public void reverseHerosMix()
+    {
+        strength=tempstrength;
+        agility=tempagility;
+        intellect=tempintellect;
+        armor=temparmor;
+    }
+    public void setHerosMix()
+    {
+         tempstrength=strength;
+        tempagility=agility;
+        tempintellect=intellect;
+        temparmor=armor;
+    }
+
+    public void death()
+    {
+        agility=3;
+        strength=3;
+        armor=3;
+        intellect=3;
+        experience=0;
+        xpneeded=100;
+        level=1;
+        health=100;
+        maxHP=100;
+        brickTicks=0;
+        gold=0;
+        inventory="";
+        irondaggers=0;
+        warriorarmors=0;
+        wizardstaffs=0;
+        oaklongbows=0;
+        herosmixes=0;
+        potions=0;
+        tsodm=0;
+        doti=0;
+        eaoif=0;
+        wcom=0;
+        brickArmor=0;
+       
+    }
+
+    public int getGold()
+    {
+        return gold;
+    }
+
+    public void town()
+    {
+        System.out.println(reset);
+        System.out.println("You rest at the local inn....");
+        try{ Thread.sleep(1000);
+        } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+        health=maxHP;
+        System.out.println("It was a good night's rest! Health restored to "+maxHP+".");
+
+    }
+
+    public void changeHealth(int dmg)
+    {
+
+        health=health-dmg;
+    }
+
+    public int getDefend()
+    {
+        return armor*4;
+    }
+
+    public void changeArmor(int arm)
+    {
+        armor=arm;
+    }
+
+    public void addXp(int xp)
+    {
+        experience=experience+xp;
+    }
+
+    public int xpLeft()
+    {
+        return xpneeded-experience;
+
+    }
+
+    public int xpNeeded()
+    {
+        return xpneeded;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+  
+
+    public void addGold(int money)
+    {
+        gold+=money;
+    }
+
+    public String Shop()
+    {
+        System.out.println(reset);
+        System.out.println("You come across an abandoned caravan as you trek the deserts, there appears to be an old wizard inside...");
+        System.out.println("\"You have "+gold+" gold coins.\"");
+        String potion="";
+        if (gold<10)
+        {
+            System.out.println("\"The old wizard angrily pushes you out of the shop! \"You need to kill monsters and bring me money!\"");
+            return "";
+        }
+
+        System.out.println("The old wizard presents his weapons and utilities...");
+
+        boolean keepshopping=true;
+        while (keepshopping)
+        {
+            if (gold<20)
+            { System.out.println("\"You only have "+gold+" gold coins? You only have enough for a potion. \"(One or No).");
+                potion=scan.nextLine();
+                
+                 if(potion.equalsIgnoreCase("one"))
+                {
+                    potions++;
+                    System.out.println("\"One for you! Have a good adventure.\"");
+                    gold-=10;
+                    break;
+                }
+                else
+                {
+                    System.out.println("\"Fine then, out of my shop.\"");
+                    break;
+                }
+            }
+            else if (gold>=20&&gold<25)
+            {
+                System.out.println("\"You only have "+gold+" gold coins? You only have enough for a potion or two. \"(Two, One, or No).");
+                potion=scan.nextLine();
+                
+                if (potion.equalsIgnoreCase("two"))
+                {
+                    potions+=2;
+                    System.out.println("\"Two it is! Have a good adventure.\"");
+                    gold-=20;
+                    break;
+
+                }
+                 if(potion.equalsIgnoreCase("one"))
+                {
+                    potions++;
+                    System.out.println("\"One for you! Have a good adventure.\"");
+                    gold-=10;
+                    break;
+                }
+                else
+                {
+                    System.out.println("\"Fine then, out of my shop.\"");
+                    break;
+                }
+            }
+
+            System.out.println("Iron dagger for 25 gold, Oak longbow for 25 gold, Wizard's staff for 25 gold, Warrior's armor for 25 gold, Hero's Mix for 50 gold, Potion for 10 gold.");
+            System.out.println("What would you like to purchase?");
+            String item=scan.nextLine();
+            if (item.equalsIgnoreCase("iron dagger"))
+            {
+
+                gold-=25;
+                strength+=5;
+                irondaggers++;
+                System.out.println("\"Thanks for the purchase! You bought an Iron Dagger for 25 gold coins. "+gold+" gold coins left.\"");
+            }
+            else if (item.equalsIgnoreCase("Oak longbow"))
+            {
+
+                gold-=25;
+                agility+=5;
+                oaklongbows++;
+                System.out.println("\"Thanks for the purchase! You bought an Oak Longbow for 25 gold coins. "+gold+" gold coins left.\"");
+
+            }
+            else if (item.equalsIgnoreCase("Wizard's staff"))
+            {
+
+                gold-=25;
+                intellect+=5;
+                wizardstaffs++;
+                System.out.println("\"Thanks for the purchase! You bought a Wizard's Staff for 25 gold coins. "+gold+" gold coins left.\"");
+
+            }
+            else if (item.equalsIgnoreCase("Warrior's armor"))
+            {
+
+                gold-=25;
+                armor+=5;
+                warriorarmors++;
+                System.out.println("\"Thanks for the purchase! You bought the Warrior's Armor for 25 gold coins. "+gold+" gold coins left.\"");
+            }
+            else if (item.equalsIgnoreCase("Potion"))
+            {        
+                gold-=10;
+                potions++;  
+                System.out.println("\"Thanks for the purchase! You bought a potion for 10 gold coins. "+gold+" gold coins left.\"");
+            }
+            else if (item.equalsIgnoreCase("Hero's Mix")&&gold>=100)
+            {
+                gold-=100;
+                herosmixes++;
+                System.out.println("\"Thanks for the purchase! You bought a Hero's Mix for 100 gold coins. "+gold+" gold coins left.\"");
+                
+            }
+            else
+            {
+                System.out.println("\"I don't have an item by that name...\"");
+            }
+            System.out.println("\"Is there anything else you'd like to purchase? Yes or No?\"");
+            String yn=scan.nextLine();
+            if (yn.equalsIgnoreCase("yes"))
+            {}
+            else 
+            {
+                keepshopping=false;
+                System.out.println("\"Thanks for the business! Good luck out there, adventurer.\"");
+
+            }
+        }
+        this.reconstructInventory();
+        return "";
+    }
+
+
+    public int determineStrength(String armor)
+    {
+        if (armor.equalsIgnoreCase("Cloth"))
+            return strength;
+        else 
+            return (int)strength/4;
+    }
+
+    public int determineAgility(String armor)
+    {
+        if (armor.equalsIgnoreCase("Chainmail"))
+            return agility;
+        else 
+            return (int)agility/4;
+    }
+
+    public int determineIntellect(String armor)
+    {
+        if (armor.equalsIgnoreCase("Emerald"))
+            return intellect;
+        else 
+            return (int)intellect/4;
+    }
+
+    public void reconstructInventory()
+    {
+        inventory="";
+        
+        if (tsodm>0)
+        {
+            inventory+="The Staff of Dark Matter (Intellect+10 and \"Black Fireblast\" spell)\n";
+        }
+        if (doti>0)
+        {
+            inventory+="Dagger of Twisted Intentions (Strength+10 and \"Gut\" spell)\n";
+        }
+        if (eaoif>0)
+        {
+            inventory+="Ethereal Armor of Insuppressible Force (Armor+10 and \"Brick Wall\" spell)\n";
+        }
+        if (wcom>0)
+        {
+            inventory+="Withered Crossbow of Malice (Agility+10 and \"Multi-shot\" spell)\n";
+        }
+        if(gold==1)
+        {
+            inventory+="1 Gold Coin\n";
+        }
+        else if (gold>1)
+        {
+            inventory+=gold+" Gold Coins\n";
+        }
+        if (irondaggers==1)
+        {
+            inventory+="Iron Dagger(Strength+"+irondaggers*5+")\n";
+        }
+        else if(irondaggers>1)
+        {
+            inventory+=irondaggers+" Iron Daggers(Strength+"+irondaggers*5+")\n";
+        }
+
+        if (wizardstaffs==1)
+        {
+            inventory+="Wizard's Staff(Intellect+"+wizardstaffs*5+")\n";
+
+        }
+        else if(wizardstaffs>1)
+        {
+            inventory+=wizardstaffs+" Wizard's Staves(Intellect+"+wizardstaffs*5+")\n";
+        }
+        if (oaklongbows==1)
+        {
+            inventory+="Oak Longbow(Agility+"+oaklongbows*5+")\n";
+        }
+        else if(oaklongbows>1)
+        {
+            inventory+=oaklongbows+" Oak Longbows(Agility+"+oaklongbows*5+")\n";
+
+        }
+        if (warriorarmors==1)
+        {
+            inventory+="Warrior's Armor(Armor+"+warriorarmors*10+")\n";
+        }
+        else if (warriorarmors>1)
+        {
+            inventory+=warriorarmors+" Warrior's Armors(Armor+"+warriorarmors*10+")\n";
+        }
+        if (potions==1)
+        {
+            inventory+="Potion(Restores 50 HP)\n";
+        }
+        else if(potions>1)
+        {
+            inventory+=potions+" Potions(Restores 50 HP), ";
+        }
+        if (herosmixes==1)
+        {
+            inventory+="Hero's Mix(Doubles all stats for a battle)\n";
+        }
+        else if(herosmixes>1)
+        {
+            inventory+=herosmixes+" Hero's Mixes(Doubles all stats for a battle)\n";
+        }
+    }
+
+    public void Explore()
+    {
+        Enemy enemy=new Enemy();
+        System.out.println(name+" vanishes into the deserts...");
+        int location=(int)(Math.random()*3);
+        if (location==0)
+        {
+            
+            try{ Thread.sleep(1000);
+            } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+            System.out.println("You find a cavern...");
+            try{ Thread.sleep(1000);
+            } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+            System.out.println("A dark beast jumps at you!");
+            enemy.fightDarkBeast(this);
+            if (wonlastbattle)
+            {
+                System.out.println("Congratulations! You defeated the dark being!\nYou search the remains and find....");
+                try{ Thread.sleep(3000);
+                } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+                int rng=(int)(Math.random()*15);
+                if (rng==0&&tsodm==0)
+                {
+                    System.out.println("The Staff of Dark Matter! Intellect increased by 10 and the \"Black Fireblast\" spell added to combat options.");
+                    tsodm++;
+                    intellect+=10;
+                    
+                    
+                }
+                else if(rng==1&&doti==0)
+                {
+                    System.out.println("Dagger of Twisted Intentions! Strength increased by 10 and the \"Gut\" spell added to combat options.");
+                    doti++;
+                    strength+=10;
+                    
+                }
+                else if (rng==2&&eaoif==0)
+                {
+                    System.out.println("Ethereal Armor of Insuppressible Force! Armor increased by 10 and the \"Brick Wall\" spell added to combat options.");
+                    eaoif++;
+                    armor+=10;
+                    
+                }
+                else if (rng==3&&wcom==0)
+                {
+                    System.out.println("Withered Crossbow of Malice! Agiliy increased by 10 and the \"Multi-shot\" spell added to combat options.");
+                    wcom++;
+                    agility+=10;
+                }
+                else
+                {
+                    System.out.println("Nothing....");
+                }
+            }
+        }
+        else 
+        {
+            try{ Thread.sleep(1000);
+            } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+            System.out.println("You find a rusted box buried in the sands...");
+            int whatitem=(int)(Math.random()*6);
+            try{ Thread.sleep(1000);
+            } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+            if (whatitem==0)
+            {
+                System.out.println("You unlatch the box...");
+                try{ Thread.sleep(2000);
+                } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+                System.out.println("You find two potions!");
+                potions+=2;
+            }
+            else if (whatitem==1)
+            {
+                System.out.println("You unlatch the box...");
+                try{ Thread.sleep(2000);
+                } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+                System.out.println("You found a Hero's Mix!");
+                herosmixes++;
+                
+            }
+            else if (whatitem==2)
+            {
+                System.out.println("You unlatch the box...");
+                try{ Thread.sleep(2000);
+                } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+                System.out.println("You find 25 gold coins!");
+                gold+=10;
+            }
+                
+            else 
+            {
+                System.out.println("You unlatch the box...");
+                try{ Thread.sleep(5000);
+                } catch(InterruptedException e){ Thread.currentThread().interrupt();}
+                System.out.println("You find nothing!");
+            }
+
+            this.reconstructInventory();
+        
+        }
+    }
+    public boolean hasSpecial()
+    {
+        if (tsodm>0||doti>0||eaoif>0||wcom>0)
+        return true;
+        return false;
+    }
+    public void returnSpecial()
+    {
+        if (tsodm>0)
+        System.out.println("6: Black Fireblast: obliterate the enemy's defenses.");
+        if (doti>0)
+        System.out.println("7: Gut: pierce the enemy's armor.");
+        if (eaoif>0&&brickTicks==0)
+        System.out.println("8: Brick Wall: Double armor for two turns.");
+        if (wcom>0)
+        System.out.println("9: Multi-shot: Fire two piercing bolts at the enemy.");
+    }
+    public int getTsodm()
+    {
+        return tsodm;
+    }
+    public int getDoti()
+    {
+        return doti;
+    }
+    public int getEaoif()
+    {
+        return eaoif;
+    }
+    public int getWcom()
+    {
+        return wcom;
+    }
+    public int blackFireBlast()
+    {
+        return intellect;
+    }
+    public int gut()
+    {
+        return strength;
+    }
+    public void brickWall()
+    {
+        brickArmor=armor;
+        armor=armor*2;
+        brickTicks=2;
+    }
+    public void reverseBrickWall()
+    {
+        armor=brickArmor;
+    }
+    public int multiShot()
+    {
+        return agility;
+    }
+    public void reduceBrickTicks()
+    {
+        brickTicks--;
+    }
+    public void setBrickWall()
+    {
+        brickArmor=armor;
+    }
+        
+        
+
+    public void wonLastBattle()
+    {
+        wonlastbattle=true;
+    }
+    public int getBrickTicks()
+    {
+        return brickTicks;
+    }
+
+    public void lostLastBattle()
+    {
+        wonlastbattle=false;
+    }
+    public void baseOne()
+    {
+        prestige++;
+        chronoschamber=false;
+        chronospalace=false;
+        sandriver=false;
+        oasis=false;
+    }
+}
+
